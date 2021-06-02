@@ -25,7 +25,7 @@ const ListPage = () => {
       <button onClick={() => handlePageChange(-1)}>&#8592;</button>
       <span>{page}/{total}</span>
       <button onClick={() => handlePageChange(1)}>&#8594;</button>
-      <ul>
+      <ul aria-label="characters">
         {characters.map(char => (
           <Character {...char} key={char.id}/>
         ))}

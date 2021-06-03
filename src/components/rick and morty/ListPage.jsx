@@ -1,11 +1,14 @@
+/* eslint-disable max-len */
 import React, { useEffect, useState } from 'react';
 import { getCharacters } from '../../services/apiUtils';
-import Character from './Character';
+import { useTheme } from '../context/ThemeProvider';
+import CharacterList from './CharacterList';
 
 const ListPage = () => {
   const [characters, setCharacters] = useState([]);
   const [total, setTotal] = useState(null);
   const [page, setPage] = useState(1);
+  const theme = useTheme();
 
   useEffect(() => {
     getCharacters(page)
@@ -20,17 +23,13 @@ const ListPage = () => {
   };
   
   return (
-    <>
-      <h1>Rick and Morty Characters</h1>
+    <div style={ theme ? { backgroundColor:'white', color: 'black' } : { backgroundColor:'black', color:'white' }}>
+      <h1 style={{ margin:'0px' }}>Rick and Morty Characters</h1>
       <button onClick={() => handlePageChange(-1)}>&#8592;</button>
       <span>{page}/{total}</span>
       <button onClick={() => handlePageChange(1)}>&#8594;</button>
-      <ul aria-label="characters">
-        {characters.map(char => (
-          <Character {...char} key={char.id}/>
-        ))}
-      </ul>
-    </>
+      <CharacterList characters={characters} />
+    </div>
   );
 };
 export default ListPage;
